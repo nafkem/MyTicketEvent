@@ -3,26 +3,24 @@ import "@nomicfoundation/hardhat-toolbox";
 import "dotenv/config";
 
 const EDU_RPC_URL = process.env.EDU_RPC_URL || "";
+const WALLET_KEY = process.env.WALLET_KEY || "";
 const API_KEY = process.env.API_KEY || "";
 
-type HttpNetworkAccountsUserConfig = any;
-module.exports = {
+const config: HardhatUserConfig = {
   solidity: "0.8.24",
   networks: {
-    // for testnet
     "Open-Campus-Codex": {
       url: EDU_RPC_URL,
-      accounts: [process.env.WALLET_KEY as string],
-      gasPrice: 1000000000,
+      accounts: [WALLET_KEY],
+      gasPrice: 1000000000, // 1 Gwei
     },
   },
   sourcify: {
     enabled: true,
   },
-
   etherscan: {
     apiKey: {
-      "Open-Campus-Codex": "123",
+      "Open-Campus-Codex": API_KEY,
     },
     customChains: [
       {
@@ -36,3 +34,5 @@ module.exports = {
     ],
   },
 };
+
+export default config;
